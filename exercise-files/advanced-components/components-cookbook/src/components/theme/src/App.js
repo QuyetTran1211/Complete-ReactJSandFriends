@@ -1,15 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {ThemeContext, themes} from './theme';
+import { ThemeContext, themes } from './theme';
 import './App.css';
 import Header from './Header';
+import User from './Body';
 
 class App extends Component {
-  state = {theme: themes.dark};
+  state = { theme: themes.dark };
 
-  changeTheme = evt => {
-    this.setState(state => ({
-      theme: state.theme === themes.dark ? themes.light : themes.dark
+  changeTheme = (evt) => {
+    this.setState((state) => ({
+      theme: state.theme === themes.dark ? themes.light : themes.dark,
     }));
   };
 
@@ -23,6 +24,7 @@ class App extends Component {
           </p>
 
           <button onClick={this.changeTheme}>Change theme</button>
+          {/* <User /> */}
         </ThemeContext.Provider>
       </div>
     );
