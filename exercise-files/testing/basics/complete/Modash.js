@@ -1,30 +1,31 @@
 /* eslint-disable prefer-template */
+
 function truncate(string, length) {
-  if (string.length > length) {
+  if(string.length > length){
     return string.slice(0, length) + '...';
-  } else {
-    return string;
+  }else {
+    return string
   }
 }
 
 function capitalize(string) {
   return (
-    string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
-  );
+    string.charAt(0).toUpperCase() + string.slice(1).toUpperCase()
+  )
 }
 
-function camelCase(string) {
+function camelCase(string){
   const words = string.split(/[\s|\-|_]+/);
   return [
-    words[0].toLowerCase(),
-    ...words.slice(1).map((w) => capitalize(w)),
-  ].join('');
+    words[0].tolowerCase(),
+    ...words.slice(1).map((w) => capitalize(w))
+  ].join('')
 }
 
 const Modash = {
   truncate,
   capitalize,
-  camelCase,
-};
+  camelCase
+}
 
 export default Modash;
