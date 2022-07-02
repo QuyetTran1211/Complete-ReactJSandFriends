@@ -2,7 +2,7 @@
 // this file in the Unit Testing chapter
 
 
-import Modash from "./Modash";
+// import Modash from "./Modash";
 
 // const string = 'there was one catch, and that was CATCH-22';
 // const actual = Modash.truncate(string, 19);
@@ -18,7 +18,7 @@ import Modash from "./Modash";
 //   console.log('[PASS] `truncate()`.');
 // }
 
-let actual;
+/* let actual;
 let expected;
 let string;
 
@@ -70,3 +70,39 @@ string = 'customer_responded_at';
 actual = Modash.camelCase(string);
 expected = 'customerRespondedAt';
 assertEqual('`camelCase()`: string with underscores', actual, expected);
+
+describe('My test suite', () => {
+  it('`true` should be `true`', () => {
+    expect(true).toBe(true);
+  })
+})
+
+it('`false` should be `fasle`', () => {
+  expect(false).toBe(false);
+}) */
+
+import Modash from './Modash';
+
+describe('Modash', () => {
+  // assertions will go here 
+
+  it('`truncate()`: truncate a string', () => {
+    const string = 'there was one catch, and that was CATCH-22';
+    expect(
+      Modash.truncate(string, 19)
+    ).toEqual('there was one catch...');
+  });
+
+  it('no-ops if <= length', () => {
+    expect(
+      Modash.truncate(string, string.length)
+    ).toEqual(string);
+  })
+});
+
+describe('Modash', ()=> {
+  describe('`truncate()`', () => {
+    const string = 'there was once catch, and that was CATCH-22';
+  });
+});
+
