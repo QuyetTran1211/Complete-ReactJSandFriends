@@ -105,7 +105,7 @@ class Client {
   }
 
   checkStatus(response) {
-    if (response.status >= 200 && response.status < 300) {
+    if (response.status >= 200 && response.status <= 304) {
       return response;
     } else {
       const error = new Error(`HTTP Error ${response.statusText}`);
