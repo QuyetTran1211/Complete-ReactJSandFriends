@@ -17,12 +17,37 @@ class Switch extends React.Component {
         payMethod: BTC
     };
 
+    select = (choice) => {
+        return (evt) => {
+            this.setState({
+                payMethod: choice
+            });
+        };
+    };
+
+    renderChoice = ({ active, onClick, label }) => {
+        const cssClasses = ["choice"];
+
+        if (active) {
+            cssClasses.push("active");
+        }
+
+        return (
+            <div className={cssClasses.join(" ")} onClick={onClick}>
+                {label}
+            </div>
+        );
+    };
+
     render() {
         return (
             <div className="switch">
-                <div className="choice">Creditcard</div>
-                <div className="choice">Bitcoin</div>
-                Pay with: {this.state.payMethod}
+                <Choice
+                    onClick={this.select(CREDITCARD)}
+                    active={this.state.payMethod === CREDITCARD}
+                    label="Pay with Creditcard"
+                />
+                Paying with: {this.state.payMethod}
             </div>
         );
     }

@@ -1,6 +1,9 @@
 import {
-  FETCH_PEOPLE_REQUEST, FETCH_PEOPLE_SUCCESS,
-  SAVE_PEOPLE_REQUEST, SAVE_PEOPLE_FAILURE, SAVE_PEOPLE_SUCCESS
+  FETCH_PEOPLE_REQUEST,
+  FETCH_PEOPLE_SUCCESS,
+  SAVE_PEOPLE_REQUEST,
+  SAVE_PEOPLE_FAILURE,
+  SAVE_PEOPLE_SUCCESS
 } from './11-redux-actions.js';
 
 const initialState = {
@@ -12,10 +15,10 @@ const initialState = {
     email: '',
     course: null,
     department: null
-  },
+  }
 };
 
-export function reducer (state = initialState, action) {
+export function reducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_PEOPLE_REQUEST:
       return Object.assign({}, state, {
