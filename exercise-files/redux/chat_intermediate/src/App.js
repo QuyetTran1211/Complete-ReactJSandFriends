@@ -124,11 +124,7 @@ const mapStateToTabsProps = (state) => {
 };
 
 const mapDispatchToTabsProps = (dispatch) => ({
-  onClick: (id) =>
-    dispatch({
-      type: 'OPEN_THREAD',
-      id: id
-    })
+  onClick: (id) => dispatch(openThread(id))
 });
 
 const ThreadTabs = connect(mapStateToTabsProps, mapDispatchToTabsProps)(Tabs);
@@ -228,35 +224,49 @@ const Thread = (props) => (
   </div>
 );
 
-class ThreadDisplay extends React.Component {
-  componentDidMount() {
-    store.subscribe(() => this.forceUpdate());
-  }
+const mapStateToThreadProps = (state) => ({
+  thread: state.threads.find((t) => t.id === state.activeThreadId)
+});
 
-  render() {
-    const state = store.getState();
-    const activeThreadId = state.activeThreadId;
-    const activeThread = state.threads.find((t) => t.id === activeThreadId);
-    return (
-      <Thread
-        thread={activeThread}
-        onMessageClick={(id) =>
-          store.dispatch({
-            type: 'DELETE_MESSAGE',
-            id: id
-          })
-        }
-        onMessageSubmit={(text) =>
-          store.dispatch({
-            type: 'ADD_MESSAGE',
-            text: text,
-            threadId: activeThreadId
-          })
-        }
-      />
-    );
-  }
+const mapDispatchToThreadProps = (dispatch) => ({
+  onMessageClick: (id) => dispatch(deleteMessage(id)),
+  dispatch: dispatch
+});
+
+const mergeThreadProps = (stateProps, dispatchProps) => ({
+  ...stateProps,
+  ...dispatchProps,
+  onMessageSubmit: (text) =>
+    dispatchProps.dispatch(addMessage(text, stateProps.thread.id))
+});
+
+function deleteMessage(id) {
+  return {
+    type: 'DELETE_MESSAGE',
+    id: id
+  };
 }
+
+function addMessage(text, threadId) {
+  return {
+    type: 'ADD_MESSAGE',
+    text: text,
+    threadId: threadId
+  };
+}
+
+function openThread(id) {
+  return {
+    type: 'OPEN_THREAD',
+    id: id
+  };
+}
+
+const ThreadDisplay = connect(
+  mapStateToThreadProps,
+  mapDispatchToThreadProps,
+  mergeThreadProps
+)(Thread);
 
 const WrappedApp = () => (
   <Provider store={store}>
